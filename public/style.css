@@ -19,6 +19,29 @@ body {
 #firepad-container {
   width: 100%;
   height: 85vh;
+  /*height: 0;
+  width: 0;*/
+}
+
+#htmlFirepad {
+  width: 100%;
+  height: 85vh;
+  /*height: 0;
+  width: 0;*/
+}
+
+#cssFirepad {
+  width: 100%;
+  height: 85vh;
+    /*height: 0;
+  width: 0;*/
+}
+
+#javascriptFirepad {
+  width: 100%;
+  height: 85vh;
+    /*height: 0;
+  width: 0;*/
 }
 
 /*.pagehalf {

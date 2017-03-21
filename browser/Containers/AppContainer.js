@@ -1,13 +1,54 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router';
+import firebase from 'firebase';
+
 import HTMLEditor from './HTMLEditor';
-import {updateHTML, updateCSS, updateJS, updateServer, updateDatabase} from '../reducers/code';
+import { updateHTML, updateCSS, updateJS, updateServer, updateDatabase, updateHTMLCSSJS } from '../reducers/code';
+import LoadingButton from './LoadingButton';
 
 class AppContainer extends Component {
   constructor(props){
     super(props)
   }
+
+  componentDidMount() {
+    // let types = ['html', 'css', 'javascript']
+    // let ref, codeMirror, firepad;
+
+    // types.forEach(type => {
+    //   ref = firebase.database().ref(`/${type}`);
+    //   codeMirror = CodeMirror(document.getElementById(`${type}Firepad`));
+
+    //   firepad = Firepad.fromCodeMirror(ref, codeMirror);
+
+    //   const self = this;
+    //   // console.log('self', self);
+    //   let handleType = (type === 'javascript') ? 'JS' : type.toUpperCase();
+    //   let typeString = `handle${handleType}Update`;
+
+    //   firepad.on('ready', function() {
+    //     // Firepad is ready.
+    //     console.log('ready');
+    //     self.props.handlers[typeString](firepad.getText());
+    //     console.log('done being ready');
+    //   });
+    //   firepad.on('synced', function(isSynced) {
+    //     // isSynced will be false immediately after the user edits the pad,
+    //     // and true when their edit has been saved to Firebase.
+    //     if (isSynced) {
+    //       self.props.handlers[typeString](firepad.getText());
+    //     }
+    //   });
+    // })
+
+    let cssRef = firebase.database().ref('/css');
+    cssRef.on('child_changed', snapshot => {
+      console.log(snapshot.val());
+    })
+
+  }
+
   render(){
     const children = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
@@ -34,8 +75,9 @@ class AppContainer extends Component {
                     <li><a href="#">Sign In</a></li>
                   </ul>
               </div>
-          </nav>
-            {children}
+            </nav>
+            <LoadingButton code={this.props.code} handlers={this.props.handlers} />
+              {children}
         </div>
     );
   }
@@ -65,6 +107,9 @@ const mapDispatchToProps = (dispatch) => {
         handleDatabaseUpdate(...args) {
           dispatch(updateDatabase(...args));
         },
+        handleHTMLCSSJSUpdate(...args) {
+          dispatch(updateHTMLCSSJS(...args));
+        }
       }
   };
 };

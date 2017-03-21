@@ -12,12 +12,26 @@ import AppContainer from './Containers/AppContainer';
 import {apiKey, authDomain, databaseURL} from '../secrets';
 import firebase from 'firebase';
 import store from './store';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
+// import { updateCSS } from './reducers/code';
+// import { initialize } from './firepads';
 
 const onAppEnter = () => {
+  // initialize();
   // run init
   var config = {apiKey, authDomain, databaseURL};
   firebase.initializeApp(config);
+  // // var htmlFirepadRef = firebase.database().ref('/html');
+  // // var jsFirepadRef = firebase.database().ref('/javascript');
+  // // var serverFirepadRef = firebase.database().ref('/server');
+  // // var databaseFirepadRef = firebase.database().ref('/database');
+  // let cssFirepad = Firepad.fromCodeMirror(cssFirepadRef, codeMirror, {
+  //   richTextShortcuts: false,
+  //   richTextToolbar: false,
+  //   defaultText: 'CSS here!'
+  // });
+  // store.dispatch(updateCSS(cssFirepad.getText()));
+  // console.log(cssFirepad.getText());
 };
 
 ReactDOM.render(
