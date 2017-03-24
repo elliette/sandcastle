@@ -5,7 +5,7 @@ const {resolve} = require('path');
 const PrettyError = require('pretty-error');
 const finalHandler = require('finalhandler');
 const runContainer = require('./docker/runContainer');
-const session = require('express-session')
+const session = require('express-session');
 const Promise = require('bluebird');
 
 const app = express();
@@ -37,20 +37,20 @@ module.exports = app
 
   // adding userid to req.session
   .post('/setUser', (req, res, next) => {
-      console.log("SETTING USER"); 
-      console.log("REQ BODY USER ID", req.body.userId); 
+      console.log("SETTING USER");
+      console.log("REQ BODY USER ID", req.body.userId);
       const userId = req.body.userId;
       req.session.userId = userId;
       res.sendStatus(200);
   })
 
   .get('/removeUser', (req, res, next) => {
-    req.session.destroy(); 
+    req.session.destroy();
     res.sendStatus(200);
   })
 
   .post('/container', (req, res, next) => {
-    const userId = req.session.userId.toLowerCase(); 
+    const userId = req.session.userId.toLowerCase();
     const userRoutes = req.body.userRoutes;
     const userModels = req.body.userModels;
     runContainer(userId, 3001, 6542, userRoutes, userModels);
@@ -75,7 +75,7 @@ module.exports = app
   })
 
     .get('/containerPostTest', (req, res, next) => {
-        const userId = req.session.userId.toLowerCase(); 
+        const userId = req.session.userId.toLowerCase();
         const containerName = `${userId}app_docker-test_1`;
         exec(`docker ps -aqf "name=${containerName}"`)
         .then( (containerId) => {

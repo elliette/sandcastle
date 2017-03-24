@@ -29,6 +29,12 @@ export default function makeFirepads() {
 		});
 	});
 
+	if (fires) {
+		fires.forEach(fire => {
+			if (fire.firepad.ready) fire.refresh();
+		});
+	}
+
 	const htmlFirepad = Firepad.fromCodeMirror(htmlFirepadRef, fires[0], {
 		richTextShortcuts: false,
 		richTextToolbar: false,
