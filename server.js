@@ -5,7 +5,7 @@ const {resolve} = require('path');
 const PrettyError = require('pretty-error');
 const finalHandler = require('finalhandler');
 const runContainer = require('./docker/runContainer');
-// const listener = require('./docker/listener');
+const removeContainer = require('./docker/removeContainer');
 const session = require('express-session')
 const Promise = require('bluebird');
 
@@ -60,6 +60,18 @@ module.exports = app
       runContainer(userId, 3001, 6542, userRoutes, userModels);
       // send res after docker compose up ?????
       res.send('posted to container')
+    } else {
+      res.send('no logged in user');
+    }
+  })
+
+  .get('/removeContainer', (req, res, next) => {
+    if (req.session.userId){
+      const userId = req.session.userId.toLowerCase();
+      removeContainer(userId);
+      res.send('removed container')
+    } else {
+      res.send('no logged in user');
     }
   })
 

@@ -30,7 +30,7 @@ const runContainer = (userId, serverPort, postgresPort, userRoutes, userModels) 
     const writeFile = Promise.promisify(fs.writeFile);
     const readFile = Promise.promisify(fs.readFile);
 
-    console.log(`DIRECTORY WHEN BACKEND BUTTON CLICKED: ${process.cwd()}`);
+    console.log(`DIRECTORY WHEN RUN BACKEND BUTTON CLICKED: ${process.cwd()}`);
 
     // currently in text-editor folder
     exec(`pwd`)

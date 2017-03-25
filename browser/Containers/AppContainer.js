@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import { Link, browserHistory } from 'react-router';
+import {connect} from 'react-redux';
 import {updateHTML, updateCSS, updateJS, updateServer, updateDatabase} from '../reducers/code';
 import {sendJson, sendPost} from '../reducers/docker.js';
 import {setUserId} from '../reducers/user';
-import firebase from 'firebase';
-import LoadingButton from './LoadingButton';
-import BackendButton from '../Components/BackendButton';
 import { IframeTabs } from '../Components/IframeTabs';
 import { FirepadTabs } from '../Components/FirepadTabs';
 import NavbarContainer from './NavbarContainer';
 import WelcomeMessage from '../Components/WelcomeMessage';
-import SignUp from './SignUp'
 import axios from 'axios';
 
 class AppContainer extends Component {
@@ -24,9 +19,9 @@ class AppContainer extends Component {
         <div>
           <NavbarContainer code={this.props.code} handlers={this.props.handlers} user={this.props.user} children={this.props.children} />
           {this.props.user.userId === ""
-          ? (<WelcomeMessage />)
-              :
-              (<div className='giant-container'>
+            ? (<WelcomeMessage />)
+            :
+            (<div className='giant-container'>
               <div className='editor-container'>
                 <FirepadTabs />
               </div>
@@ -40,7 +35,7 @@ class AppContainer extends Component {
                 </div>
               </div>
             </div>)
-            }
+          }
           </div>
     );
   }
@@ -80,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleSendJson(...args){
           dispatch(sendJson(...args));
-        }, 
+        },
         handleSendPost(...args){
           dispatch(sendPost(...args));
         }
