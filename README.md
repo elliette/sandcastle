@@ -3,7 +3,7 @@
 # Sandcastle
 ## [www.sandcastle.world](http://www.sandcastle.world)
 
-### A project by Elliott Brooks, Susanna Huang, Meredith Kiung, and Jin Wang 
+### A project by Elliott Brooks, Susanna Huang, Meredith Kiung, and Jin Wang
 
 ![Sandcastle App View](./public/sandcastle_app.png "Sandcastle App View")
 
