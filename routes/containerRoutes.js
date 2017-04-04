@@ -5,8 +5,6 @@ const runContainer = require('../docker/runContainer');
 const removeContainer = require('../docker/removeContainer');
 const Promise = require('bluebird');
 const exec = Promise.promisify(require('child_process').exec);
-const dockerCmd = require('../variables').dockerCmd;
-const ipAddress = require('../variables').ipAddress;
 
 // these variables are used in the containerAPI routes
 var requestBody;
@@ -89,9 +87,9 @@ module.exports = router
 
 // run a get request in container terminal and receive the result
 .get('/containerAPI', (req, res, next) => {
-    exec(`${dockerCmd} ps -aqf "name=${containerName}"`)
+    exec(`docker ps -aqf "name=${containerName}"`)
         .then((containerId) => {
-            return exec(`${dockerCmd} exec ${containerId.trim()} curl ${ipAddress+path.trim()}`);
+            return exec(`docker exec ${containerId.trim()} curl http://localhost:8080${path.trim()}`);
         })
         .then((result) => {
             res.send(result);
@@ -100,9 +98,9 @@ module.exports = router
 })
 
 .post('/containerAPI', (req, res, next) => {
-    exec(`${dockerCmd} ps -aqf "name=${containerName}"`)
+    exec(`docker ps -aqf "name=${containerName}"`)
         .then((containerId) => {
-            return exec(`${dockerCmd} exec ${containerId.trim()} curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '${requestBody}' ${ipAddress+path.trim()}`)
+            return exec(`docker exec ${containerId.trim()} curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '${requestBody}' http://localhost:8080${path.trim()}`)
         })
         .then((result) => {
             res.send(result);
@@ -111,9 +109,9 @@ module.exports = router
 })
 
 .put('/containerAPI', (req, res, next) => {
-    exec(`${dockerCmd} ps -aqf "name=${containerName}"`)
+    exec(`docker ps -aqf "name=${containerName}"`)
         .then((containerId) => {
-            return exec(`${dockerCmd} exec ${containerId.trim()} curl -X PUT -H "Content-type: application/json" -d '${requestBody}' ${ipAddress+path.trim()}`)
+            return exec(`docker exec ${containerId.trim()} curl -X PUT -H "Content-type: application/json" -d '${requestBody}' http://localhost:8080${path.trim()}`)
         })
         .then((result) => {
             res.send(result);
@@ -122,9 +120,9 @@ module.exports = router
 })
 
 .delete('/containerAPI', (req, res, next) => {
-    exec(`${dockerCmd} ps -aqf "name=${containerName}"`)
+    exec(`docker ps -aqf "name=${containerName}"`)
         .then((containerId) => {
-            return exec(`${dockerCmd} exec ${containerId.trim()} curl -X "DELETE" ${ipAddress+path.trim()}`)
+            return exec(`docker exec ${containerId.trim()} curl -X "DELETE" http://localhost:8080${path.trim()}`)
         })
         .then((result) => {
             res.send(result);
