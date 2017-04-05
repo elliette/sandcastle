@@ -5,6 +5,8 @@ import Editors from './Editors';
 
 export const FirepadTabs = () => {
 
+    const handleClick = (event) => {}
+
     let HTMLEditor = Editors[0];
     let CSSEditor = Editors[1];
     let JSEditor = Editors[2];
